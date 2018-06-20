@@ -39,7 +39,8 @@ script:
   - echo 'Hello Test Firebase CI'
 install:
   - npm install -g --silent firebase-tools
-after_success:
   - firebase deploy --only functions --token "$FIREBASE_API_TOKEN"
+after_success:
+  - echo 'after success'
 
 sudo: false # route your build to the container-based infrastructure for a faster build
