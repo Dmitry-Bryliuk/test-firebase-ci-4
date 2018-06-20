@@ -1,0 +1,45 @@
+language: node_js
+
+node_js:
+  - "7"
+
+branches:
+  only:
+    - master
+
+notifications:
+  email:
+    on_success: never
+    on_failure : never
+
+
+# install using travis firebase provider
+# https://docs.travis-ci.com/user/deployment/firebase/
+# on windows encrypt the token with https://pypi.org/project/travis-encrypt/
+
+#before_deploy: "echo 'ready?'"
+
+#deploy:
+#  provider: firebase
+#  token:
+#    secure: "s7Nq+bB9hgmOC4EGZj8o7IsTX4idkXbnrVKKIRJKmcY2CbsOylunMj4aSwcWfHAmvFkGlL0NkUEQ5BYOWs/UeXE9KCMdDeo1Q3wwug1EUOFZnZrm3uUP0uQ8wPoFRp7176dHAyH+R6J5VilVMp9YDc+ALVHWjLEfhI5loCll4gAuob2Snc7dc8lZGYyg2JOT+d/K1+9YQ8hZ/pVnES3+hm9qcRjnb7SdPu8/5iJOwKM5WCfa1mkno5I9KC4l8LLjWPb3feGgwBHM1erWdHb2mefxfDbCnP6lHaNJYpICvvKPNM+i2JVRlEqBGvbO9i+HDrOxXLJEPUnRDSWNX0wqgKpVB2xl/2n03yMIaG/K18DdaM9wkZFmQioeEd0+/SiPhCpSb2ximo5le1j8UmA/+EQRd3qSquDSA+1pijP0v21uGu/uVIi2hdmGToPWB9nrN9bL2jYthAov78MTp4I6G6dN4IzWvjZwMepOwC/rylJEhbXGbh58WFdl2i23W83SBl+U18H0w3ARmTZyDlQw19PQO4c3CjuEAGofvtFlBjbqWUmLctLfmVgw/cUcPArOMtTaX5tWMQqbB9BeEf+bG/fS+78zcvOLYN+bGGxw2rOUH2JjMCe8ijsHowMj9KSlU/x4HTqYZ6Oc1vnuN7/2hB4lsAf9QP+xmffTHQAV3B8="
+#  message: "succesfully deployed"
+
+#after_deploy: "echo 'done!'"
+
+
+#script:
+#  - echo 'Hello Test Firebase CI'
+
+#install:
+#  - echo 'Hello Test Firebase CI'
+
+# alternative way to install:
+script:
+  - echo 'Hello Test Firebase CI'
+install:
+  - npm install -g --silent firebase-tools
+after_success:
+  - firebase deploy --token "$FIREBASE_API_TOKEN" --non-interactive
+
+sudo: false # route your build to the container-based infrastructure for a faster build
