@@ -40,6 +40,6 @@ script:
 install:
   - npm install -g --silent firebase-tools
 after_success:
-  - firebase deploy --only functions --token "$FIREBASE_API_TOKEN" --non-interactive
+  - firebase deploy --only functions --token "$FIREBASE_API_TOKEN"
 
 sudo: false # route your build to the container-based infrastructure for a faster build
