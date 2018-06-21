@@ -9,6 +9,7 @@ branches:
 
 git:
   depth: false
+  quiet: true
 
 notifications:
   email:
