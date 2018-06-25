@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+// original offline tests with full manual mocking, see: https://firebase.google.com/docs/functions/unit-testing
+// we may use firestore mock for offline testing, see test.firestore_mock.js
+
 // You can run these unit tests by running "npm test" inside the uppercase/functions directory.
 
 // Chai is a commonly used library for creating unit test suites. It is easily extended with plugins.

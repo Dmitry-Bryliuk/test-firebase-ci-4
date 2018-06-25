@@ -1,3 +1,6 @@
+// use proxyquire to override firestore: https://github.com/balaji-b-v/firebase-mock-v3/blob/3ad3191bb55e42e2a198d95dcbf16a16e0cf3e9d/tutorials/proxyquire.md
+// or make some switch in code to get firestore mock
+
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
