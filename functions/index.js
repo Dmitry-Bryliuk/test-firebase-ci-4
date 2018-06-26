@@ -49,7 +49,7 @@ exports.createUser = functions.firestore
 // https://us-central1-test-ci-b56e8.cloudfunctions.net/addData
 
 exports.addData = functions.https.onRequest((req, res) => {
-    const original = req.query.text;
+    //const original = req.query.text;
 
     var db = admin.firestore();
 
@@ -60,7 +60,7 @@ exports.addData = functions.https.onRequest((req, res) => {
         last: 'Lovelace',
         born: 1815
     });
-    console.log("setAda:", setAda);
+    //console.log("setAda:", setAda);
     setAda.then(r => console.log("then:", r)).catch(e => { });
 
     var aTuringRef = db.collection('users').doc('aturing2');
@@ -71,7 +71,7 @@ exports.addData = functions.https.onRequest((req, res) => {
         'last': 'Turing',
         'born': 1912
     });
-    console.log("setAlan:", setAlan);
+    //console.log("setAlan:", setAlan);
     setAlan.then(r => console.log("then:", r)).catch(e => { });
 
     //return res.redirect(303, "OK");

@@ -9,7 +9,7 @@ var functions = require('firebase-functions');
 const chai = require('chai');
 const assert = chai.assert;
 
-// use firestore.autoFlush() option or manual firestore.flush() to execute firestore operations
+// use firestore.autoFlush() option or call manually firestore.flush() to execute firestore operations
 firestore.autoFlush();
 
 function listSnapshot(snapshot, title) {
@@ -18,25 +18,36 @@ function listSnapshot(snapshot, title) {
     console.log("<");
 }
 
+// override firestore for our functions
+var proxyquire = require('proxyquire');
+var myFunctions = proxyquire('../index', {
+    "firebase-admin": {
+        credential: { cert() { } },
+        initializeApp() { },
+        firestore: () => firestore
+    }
+});
+
 describe('Cloud Functions', () => {
-    let myFunctions;
+    //let myFunctions;
 
     before(() => {
-        myFunctions = require('../index');
+        //myFunctions = require('../index');
     });
 
     after(() => {
     });
 
-    describe('test firestore operations', () => {
-        it('should add and list firestore documents', (done) => {
-            firestore.collection("users").doc("aaa").set({ name: "aaa" }).then(r => {
+    describe('test mock firestore operations', () => {
+        it('should add and list firestore documents via mock', (done) => {
+            const collection_name = "docs";
+            firestore.collection(collection_name).doc("doc1").set({ name: "document 1" }).then(r => {
                 console.log("set:", r);
-                firestore.collection("users").add({ name: "bbb" }).then(r => {
+                firestore.collection(collection_name).add({ name: "document 2" }).then(r => {
                     console.log("add:", r.id, '=>', r.data);
-                    firestore.collection("users").get().then(r => {
+                    firestore.collection(collection_name).get().then(r => {
                         //console.log(r);
-                        listSnapshot(r, "after:");
+                        listSnapshot(r, "documents added via firestore mock:");
                         // is there correct way to tell assertion failed without relying on timeout?
                         assert.equal(r.size, 2);
                         done();
@@ -46,9 +57,18 @@ describe('Cloud Functions', () => {
         })
     });
 
-    describe('some other test', () => {
-        it('should test something', (done) => {
-            done();
+    describe('test addData function with mock', () => {
+        it('should add users via function call into firestore mock', (done) => {
+            myFunctions.addData();
+
+            const collection_name = "users";
+
+            // check data is really placed into mock
+            firestore.collection(collection_name).get().then(r => {
+                listSnapshot(r, "users added via function call:");
+                assert.equal(r.size, 2);
+                done();
+            });
         });
     });
 })
