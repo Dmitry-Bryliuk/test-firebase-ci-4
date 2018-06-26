@@ -34,7 +34,7 @@ const projectConfig = {
   databaseURL: "https://test-ci-b56e8.firebaseio.com",
   storageBucket: "test-ci-b56e8.appspot.com"
 };
-const test = require('firebase-functions-test')(projectConfig, '../service-account-key-firebase.json');
+const test = require('firebase-functions-test')(projectConfig, './service-account-key-firebase.json');
 
 describe('Cloud Functions', () => {
   let myFunctions;
