@@ -4,15 +4,21 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
-var serviceAccount = require('./service-account-key-firebase.json');
+// way to use firestore locally?
+/*var serviceAccount = require('./service-account-key-firebase.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://test-ci-b56e8.firebaseio.com"
-});
+});*/
+
+// Initialize on Cloud Functions
+admin.initializeApp(functions.config().firebase);
 
 // original realtime db functions from sample: https://github.com/Firebase/functions-samples/tree/master/quickstarts/uppercase/functions/test/
 // comments stripped
+
+// use: https://us-central1-test-ci-b56e8.cloudfunctions.net/addMessage?text=zzz
 
 exports.addMessage = functions.https.onRequest((req, res) => {
     const original = req.query.text;
@@ -31,12 +37,17 @@ exports.makeUppercase = functions.database.ref('/messages/{pushId}/original')
 
 // firestore functions
 
+// https://us-central1-test-ci-b56e8.cloudfunctions.net/addMessageFirestore?text=zzz
+
 exports.addMessageFirestore = functions.https.onRequest((req, res) => {
     const original = req.query.text;
     return admin.firestore().collection('messages').add({ original: original }).then((writeResult) => {
         return res.json({ result: `Message with ID: ${writeResult.id} added.` });
     });
 });
+
+// https://us-central1-test-ci-b56e8.cloudfunctions.net/addMessageFirestoreCall
+// how to pass params?
 
 exports.addMessageFirestoreCall = functions.https.onCall((data, context) => {
     return admin.firestore().collection('messages').add({ original: data.text }).then((writeResult) => {
@@ -92,5 +103,6 @@ exports.addData = functions.https.onRequest((req, res) => {
     //console.log("setAlan:", setAlan);
     setAlan.then(r => console.log("then:", r)).catch(e => { });
 
+    // it have to return something correct
     //return res.redirect(303, "OK");
 });
