@@ -4,16 +4,18 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 
-// way to use firestore locally?
-/*var serviceAccount = require('./service-account-key-firebase.json');
+// initialize to allow local firestore calls
+var serviceAccount = require('./service-account-key-firebase.json');
 
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://test-ci-b56e8.firebaseio.com"
-});*/
+    projectId: "test-ci-b56e8",
+    databaseURL: "https://test-ci-b56e8.firebaseio.com",
+    storageBucket: "test-ci-b56e8.appspot.com"
+});
 
 // Initialize on Cloud Functions
-admin.initializeApp(functions.config().firebase);
+//admin.initializeApp(functions.config().firebase);
 
 // original realtime db functions from sample: https://github.com/Firebase/functions-samples/tree/master/quickstarts/uppercase/functions/test/
 // comments stripped
@@ -75,9 +77,9 @@ exports.createUser = functions.firestore
         //const newValue = snap.data();
     });
 
-// https://us-central1-test-ci-b56e8.cloudfunctions.net/addData
+// https://us-central1-test-ci-b56e8.cloudfunctions.net/addDataFirestore
 
-exports.addData = functions.https.onRequest((req, res) => {
+exports.addDataFirestore = functions.https.onRequest((req, res) => {
     //const original = req.query.text;
 
     var db = admin.firestore();
