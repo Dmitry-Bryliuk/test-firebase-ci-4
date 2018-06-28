@@ -5,7 +5,7 @@
     "ci-test": "npm install && npm run test",
     "test": "npm run test-offline",
     "test-online": "mocha --reporter spec test/test.online.js --exit",
-    "test-online-my": "mocha --reporter spec test/test.online_my.js --exit",
+    "test-online-firestore": "mocha --reporter spec test/test.online_firestore.js --exit",
     "test-offline": "mocha --reporter spec test/test.offline.js --exit",
     "test-mock": "mocha --reporter spec test/test.firestore_mock.js --exit",
     "lint": "eslint .",
