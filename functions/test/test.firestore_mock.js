@@ -59,6 +59,7 @@ describe('Cloud Functions', () => {
 
     describe('test addData function with mock', () => {
         it('should add users via function call into firestore mock', (done) => {
+            // how to chain it with promises?
             myFunctions.addData();
 
             const collection_name = "users";
