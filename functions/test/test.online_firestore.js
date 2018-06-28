@@ -32,6 +32,7 @@ describe('Cloud Functions', () => {
     });
   });
 
+  // you should remove "docs" from firestore manually or via api call before running this test
   describe('test firestore operations', () => {
     it('should add and list firestore documents online', (done) => {
       const firestore = admin.firestore();
@@ -44,7 +45,6 @@ describe('Cloud Functions', () => {
             //console.log(r);
             listSnapshot(r, "documents added via firestore mock:");
             // is there correct way to tell assertion failed without relying on timeout?
-            // should remove "docs" from firestore manually or via api call before running this test
             assert.equal(r.size, 2);
             done();
           });
