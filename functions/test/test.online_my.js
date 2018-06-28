@@ -1,3 +1,5 @@
+// test online firestore calls
+
 const admin = require('firebase-admin');
 
 // initialize to allow local firestore calls
@@ -42,6 +44,7 @@ describe('Cloud Functions', () => {
             //console.log(r);
             listSnapshot(r, "documents added via firestore mock:");
             // is there correct way to tell assertion failed without relying on timeout?
+            // should remove "docs" from firestore manually or via api call before running this test
             assert.equal(r.size, 2);
             done();
           });
